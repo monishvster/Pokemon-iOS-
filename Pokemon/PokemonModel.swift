@@ -2,38 +2,26 @@
 //  PokemonType.swift
 //  Pokemon
 //
-//  Created by sainathreddy on 2/25/17.
 //  Copyright © 2017 Verma,Monish. All rights reserved.
 //
-import UIKit
-import Foundation
 
-class PokemonType {
+import Foundation
+import UIKit
+
+
+class PokemonModel {
     
-    var PokemonTypeName:String = ""
-    var PokemonCatchRate:Double = 0.0
+    var PokemonName:String
+    var PokemonCatchRate:Double
     var PokemonImage:UIImage
     
-    var PokemonDictionary:[String:Pokemon] = [:]
     
     
-    
-    init(PokemonTypeName:String,PokemonCatchRate:Double,PokemonImage:UIImage) {
-        self.PokemonTypeName = PokemonTypeName
+    init(PokemonName:String,PokemonCatchRate:Double,PokemonImage:UIImage) {
+        self.PokemonName = PokemonName
         self.PokemonCatchRate = PokemonCatchRate
         self.PokemonImage = PokemonImage
     }
     
-    func displayOrder() ->[String:[Double]] {
-        
-        
-    }
-    
-    func updateCatchRate(PokemonName:String) {
-        
-    }
-    
-    func addPokemon(Pokemon:Pokemon) {
-        
-    }
+
 }

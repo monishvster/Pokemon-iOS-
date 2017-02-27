@@ -10,20 +10,12 @@ import UIKit
 
 class PokemonTableViewController: UITableViewController {
 
-    var PokemonImages:[UIImage]!
-    var PokemonName:[String]!
-    var PokemonCatchRate:[Double]!
-    var PokemonType:[String]!
+    var pokeFactory:PokemonFactory = PokemonFactory()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //initializing the variables
-        
-        PokemonImages = [#imageLiteral(resourceName: "pikachu"),#imageLiteral(resourceName: "electrode"),#imageLiteral(resourceName: "magnemite"),#imageLiteral(resourceName: "gloom"),#imageLiteral(resourceName: "bellsprout"),#imageLiteral(resourceName: "tropius"),#imageLiteral(resourceName: "charizard"),#imageLiteral(resourceName: "spearow"),#imageLiteral(resourceName: "doduo")]
-        PokemonName = ["Pikachu","Electrode","Magnemite","Gloom","Bellsprout","Tropius","Charizard","Spearow","Doduo"]
-        PokemonCatchRate = [24.8,7.8,24.8,15.7,33.3,26.1,5.9,33.3,24.8]
-        PokemonType = ["Electric","Grass","Flying"]
+        pokeFactory.createModel()
+       
         
     }
 
@@ -36,59 +28,39 @@ class PokemonTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return PokemonType.count
+        return pokeFactory.pokemon.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return PokemonType.count
+       return pokeFactory.pokemon[section].PokeDictionary.keys.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        switch indexPath.section {
-        case 0:
+      
             let cell = tableView.dequeueReusableCell(withIdentifier: "electricCell", for: indexPath)
-            cell.textLabel?.text = PokemonName[indexPath.row]
-            cell.imageView?.image = PokemonImages[indexPath.row]
-            cell.detailTextLabel?.text = String(PokemonCatchRate[indexPath.row])
+            let output = pokeFactory.pokemon[indexPath.section].displayorder()
+            cell.textLabel?.text = output[indexPath.row].PokemonName
+            cell.imageView?.image = output[indexPath.row].PokemonImage
+            cell.detailTextLabel?.text = String(output[indexPath.row].PokemonCatchRate)
             return cell
-            
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "grassCell", for: indexPath)
-            cell.textLabel?.text = PokemonName[indexPath.row + 3]
-            cell.imageView?.image = PokemonImages[indexPath.row + 3]
-            cell.detailTextLabel?.text = String(PokemonCatchRate[indexPath.row + 3])
-            return cell
-            
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "flyingCell", for: indexPath)
-            cell.textLabel?.text = PokemonName[indexPath.row + 6]
-            cell.imageView?.image = PokemonImages[indexPath.row + 6]
-            cell.detailTextLabel?.text = String(PokemonCatchRate[indexPath.row + 6])
-            return cell
-            
-        default:
-            break
-        }
-    
-        return tableView.dequeueReusableCell(withIdentifier: "flyingCell", for: indexPath)
+        
+       
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return PokemonType[section]
-        case 1:
-            return PokemonType[section]
-        case 2:
-            return PokemonType[section]
-        default:
-            return ""
-        }
+        return pokeFactory.pokemon[section].PokemonType
     }
 
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let output:[PokemonModel] = pokeFactory.pokemon[indexPath.section].displayorder()
+        output[indexPath.row].PokemonCatchRate += 1
+        self.tableView.reloadData()
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
