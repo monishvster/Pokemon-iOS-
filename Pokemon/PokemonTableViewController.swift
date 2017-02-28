@@ -15,7 +15,6 @@ class PokemonTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pokeFactory.createModel()
-       
         
     }
 
@@ -27,7 +26,6 @@ class PokemonTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return pokeFactory.pokemon.count
     }
 
@@ -56,8 +54,10 @@ class PokemonTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let output:[PokemonModel] = pokeFactory.pokemon[indexPath.section].displayorder()
-        output[indexPath.row].PokemonCatchRate += 1
+        let output:[Pokemon] = pokeFactory.pokemon[indexPath.section].displayorder()
+        for i in 0..<pokeFactory.pokemon.count {
+        pokeFactory.pokemon[i].updatecatchrate(output[indexPath.row].PokemonName)
+        }
         self.tableView.reloadData()
     }
     
