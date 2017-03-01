@@ -39,9 +39,9 @@ class PokemonData {
     }
     
     //Adds a Pokemon
-    func addpokemon(_ add:Pokemon)
+    func addpokemon(newPokemon:Pokemon)
     {
-        //do something in future
+        PokeDictionary[newPokemon.PokemonName] = newPokemon
         
     }
 

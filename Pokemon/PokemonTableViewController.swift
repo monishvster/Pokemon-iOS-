@@ -56,7 +56,7 @@ class PokemonTableViewController: UITableViewController {
         
         let output:[Pokemon] = pokeFactory.pokemon[indexPath.section].displayorder()
         for i in 0..<pokeFactory.pokemon.count {
-        pokeFactory.pokemon[i].updatecatchrate(output[indexPath.row].PokemonName)
+            pokeFactory.pokemon[i].updatecatchrate(output[indexPath.row].PokemonName)
         }
         self.tableView.reloadData()
     }
